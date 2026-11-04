@@ -33,6 +33,14 @@ def voir_panier():
     total = sum(item['price'] * item['quantity'] for item in panier)
     return render_template('panier.html', panier=panier, total=total)
 
+@app.route('/supprimer', methods=['POST'])
+def supprimer():
+    product_name = request.form.get('product_name')
+    panier = session.get('panier', [])
+    panier = [item for item in panier if item['name'] != product_name]
+    session['panier'] = panier
+    return redirect(url_for('voir_panier'))
+
 @app.route('/valider', methods=['POST'])
 def valider():
     session.pop('panier', None)

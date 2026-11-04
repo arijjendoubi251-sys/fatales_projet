@@ -19,22 +19,29 @@
         <h1>Mon Panier</h1>
 
         {% if panier %}
-            <table style="width:100%; border-collapse:collapse;">
-                <tr>
-                    <th align="left">Produit</th>
-                    <th>Prix</th>
-                    <th>Qté</th>
-                    <th>Sous-total</th>
-                </tr>
-                {% for item in panier %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td align="center">{{ "%.3f"|format(item.price) }} TND</td>
-                    <td align="center">{{ item.quantity }}</td>
-                    <td align="center">{{ "%.3f"|format(item.price * item.quantity) }} TND</td>
-                </tr>
-                {% endfor %}
-            </table>
+       <table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th align="left">Produit</th>
+        <th>Prix</th>
+        <th>Qté</th>
+        <th>Sous-total</th>
+        <th></th>
+    </tr>
+    {% for item in panier %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td align="center">{{ "%.3f"|format(item.price) }} TND</td>
+        <td align="center">{{ item.quantity }}</td>
+        <td align="center">{{ "%.3f"|format(item.price * item.quantity) }} TND</td>
+        <td align="center">
+            <form action="/supprimer" method="POST">
+                <input type="hidden" name="product_name" value="{{ item.name }}">
+                <button type="submit" style="background:#e50914; color:#fff; border:none; padding:6px 12px; cursor:pointer;">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
             <h2>Total : {{ "%.3f"|format(total) }} TND</h2>
 
