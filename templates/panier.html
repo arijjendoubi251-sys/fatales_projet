@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatales - Panier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='fatales.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">FATALES</div>
+        <div class="panier-link">
+            <a href="/">Accueil</a>
+        </div>
+    </header>
+
+    <main class="product-container" style="display:block;">
+        <h1>Mon Panier</h1>
+
+        {% if panier %}
+            <table style="width:100%; border-collapse:collapse;">
+                <tr>
+                    <th align="left">Produit</th>
+                    <th>Prix</th>
+                    <th>Qté</th>
+                    <th>Sous-total</th>
+                </tr>
+                {% for item in panier %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td align="center">{{ "%.3f"|format(item.price) }} TND</td>
+                    <td align="center">{{ item.quantity }}</td>
+                    <td align="center">{{ "%.3f"|format(item.price * item.quantity) }} TND</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h2>Total : {{ "%.3f"|format(total) }} TND</h2>
+
+            <form action="/valider" method="POST">
+                <button type="submit" class="btn-ajouter">VALIDER LA COMMANDE</button>
+            </form>
+        {% else %}
+            <p>Votre panier est vide.</p>
+            <a href="/">Retour à l'accueil</a>
+        {% endif %}
+    </main>
+
+</body>
+</html>

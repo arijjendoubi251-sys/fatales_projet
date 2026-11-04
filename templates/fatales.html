@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatales - Hypnose Doll Eyes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='fatales.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">FATALES</div>
+        <div class="panier-link">
+            <a href="/panier">Panier (<span id="cart-count">{{ total_items }}</span>)</a>
+        </div>
+    </header>
+
+    <main class="product-container">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename='png.png') }}" alt="Hypnose Doll Eyes">
+        </div>
+        <div class="product-details">
+            <h1>HYPNOSE DOLL EYES</h1>
+            <p class="brand">LANCOME</p>
+            <p class="price">136,000 TND</p>
+            <p class="description">
+                Grâce à la formule exclusive Fibershine, enrichie en poudre de nylon, vous atteignez chaque cil jusqu'au coin intérieur de l'œil.
+            </p>
+
+            <form action="/ajouter" method="POST">
+                <div class="quantity-selector">
+                    <button type="button" onclick="decrement()">-</button>
+                    <input type="number" name="quantity" id="qty" value="1" min="1">
+                    <button type="button" onclick="increment()">+</button>
+                </div>
+                <input type="hidden" name="product_name" value="Hypnose Doll Eyes Lancome">
+                <input type="hidden" name="product_price" value="136.000">
+                <button type="submit" class="btn-ajouter">AJOUTER AU PANIER</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function increment() {
+            let qty = document.getElementById('qty');
+            qty.value = parseInt(qty.value) + 1;
+        }
+        function decrement() {
+            let qty = document.getElementById('qty');
+            if (parseInt(qty.value) > 1) {
+                qty.value = parseInt(qty.value) - 1;
+            }
+        }
+    </script>
+</body>
+</html>
